@@ -6,10 +6,12 @@ namespace MuscleTrainer
 {
     static class Emulator
     {
-        public static readonly string PSXFIN = "psxfin";
-        public static readonly string EPSXE = "ePSXe";
-        public static readonly string PSXFIN_VERSION = "psxfin v.1.13";
-        public static readonly string EPSXE_VERSION = "ePSXe v.1.9.0";
+        public static readonly string PSXFIN = @"psxfin";
+        public static readonly string EPSXE = @"ePSXe";
+        public static readonly string PSXFIN_VERSION = @"psxfin v.1.13";
+        public static readonly string EPSXE_VERSION = @"ePSXe v.1.9.0";
+        public static readonly string PSXFIN_VERSION_CHECK = "pSX v1.13\0";
+        public static readonly string PPSXE_VERSION_CHECK = @"ePSXe (Enhanced PSX Emulator) v.1.9.0.";
 
         public static string emulator;
         private static List<string> badVersionsMessaged;
@@ -46,16 +48,14 @@ namespace MuscleTrainer
              * Verify that psxfin version == 1.13
              * This method uses the text in the about window
              **/
-            byte[] psxfinVersion = new byte[] { 0x70, 0x00, 0x53, 0x00, 
-                0x58, 0x00, 0x20, 0x00, 0x76, 0x00, 0x31, 0x00, 
-                0x2E, 0x00, 0x31, 0x00, 0x33, 0x00, 0x00, 0x00 }; //TODO use text instead
-            byte[] psxfinVersionBuf = new Byte[20];
+            byte[] expected = System.Text.Encoding.Unicode.GetBytes(PSXFIN_VERSION_CHECK);
+            byte[] psxfinVersionBuf = new Byte[expected.Length];
             IntPtr psxfinVersionPtr = new IntPtr(Offset.psxfinVersion);
             mioRelative.MemoryRead(psxfinVersionPtr, psxfinVersionBuf);
             bool badVersion = false;
-            for (int i = 0; i < psxfinVersion.Length; i++)
+            for (int i = 0; i < expected.Length; i++)
             {
-                if (psxfinVersion[i] != psxfinVersionBuf[i]) badVersion = true;
+                if (expected[i] != psxfinVersionBuf[i]) badVersion = true;
             }
             if (!badVersion) return (IntPtr)BitConverter.ToInt32(readBuf, 0);
             bool empty = true; //Read error, maybe starting up
@@ -73,29 +73,14 @@ namespace MuscleTrainer
              * Verify that ePSXe version == 1.9.0
              * This method uses the text in the about window
              **/
-            byte[] ePSXeVersion = new byte[] { 0x65, 0x00, 0x50, 0x00, 
-                0x53, 0x00, 0x58, 0x00, 0x65, 0x00, 0x20, 0x00, 
-                0x28, 0x00, 0x45, 0x00, 0x6E, 0x00, 0x68, 0x00, 
-                0x61, 0x00, 0x6E, 0x00, 0x63, 0x00, 0x65, 0x00, 
-                0x64, 0x00, 0x20, 0x00, 0x50, 0x00, 0x53, 0x00, 
-                0x58, 0x00, 0x20, 0x00, 0x45, 0x00, 0x6D, 0x00, 
-                0x75, 0x00, 0x6C, 0x00, 0x61, 0x00, 0x74, 0x00, 
-                0x6F, 0x00, 0x72, 0x00, 0x29, 0x00, 0x20, 0x00, 
-                0x76, 0x00, 0x2E, 0x00, 0x31, 0x00, 0x2E, 0x00, 
-                0x39, 0x00, 0x2E, 0x00, 0x30, 0x00, 0x2E, 0x00, 
-                0x0A, 0x00, 0x20, 0x00, 0x5B, 0x00, 0x68, 0x00, 
-                0x74, 0x00, 0x74, 0x00, 0x70, 0x00, 0x3A, 0x00, 
-                0x2F, 0x00, 0x2F, 0x00, 0x77, 0x00, 0x77, 0x00, 
-                0x77, 0x00, 0x2E, 0x00, 0x65, 0x00, 0x70, 0x00, 
-                0x73, 0x00, 0x78, 0x00, 0x65, 0x00, 0x2E, 0x00, 
-                0x63, 0x00, 0x6F, 0x00, 0x6D, 0x00, 0x5D, 0x00 }; //TODO use text instead
-            byte[] ePSXeVersionBuf = new Byte[124];
+            byte[] expected = System.Text.Encoding.Unicode.GetBytes(PPSXE_VERSION_CHECK);
+            byte[] ePSXeVersionBuf = new Byte[expected.Length];
             IntPtr ePSXeVersionPtr = new IntPtr(Offset.ePSXeVersion);
             mioRelative.MemoryRead(ePSXeVersionPtr, ePSXeVersionBuf);
             bool badVersion = false;
-            for (int i = 0; i < ePSXeVersion.Length; i++)
+            for (int i = 0; i < expected.Length; i++)
             {
-                if (ePSXeVersion[i] != ePSXeVersionBuf[i]) badVersion = true;
+                if (expected[i] != ePSXeVersionBuf[i]) badVersion = true;
             }
             if (!badVersion) return (IntPtr)Offset.ePSXeMemstart; //Memory start (fixed pos, no pointer needed)
             bool empty = true; //Read error, maybe starting up
