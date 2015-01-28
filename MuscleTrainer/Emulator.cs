@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Runtime.InteropServices; //DllImport
 
 namespace MuscleTrainer
 {
     static class Emulator
     {
+        [DllImport("msvcrt.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern int memcmp(byte[] b1, byte[] b2, UIntPtr count);
+
         public static readonly string PSXFIN = @"psxfin";
         public static readonly string EPSXE = @"ePSXe";
         public static readonly string PSXFIN_VERSION = @"psxfin v.1.13";
@@ -51,12 +55,8 @@ namespace MuscleTrainer
             byte[] psxfinVersionBuf = new Byte[expected.Length];
             IntPtr psxfinVersionPtr = new IntPtr(Offset.psxfinVersion);
             mioRelative.MemoryRead(psxfinVersionPtr, psxfinVersionBuf);
-            bool badVersion = false;
-            for (int i = 0; i < expected.Length; i++)
-            {
-                if (expected[i] != psxfinVersionBuf[i]) badVersion = true;
-            }
-            if (!badVersion) return (IntPtr)BitConverter.ToInt32(readBuf, 0);
+            if (memcmp(expected, psxfinVersionBuf, new UIntPtr((uint)expected.Length)) == 0)
+                return (IntPtr)BitConverter.ToInt32(readBuf, 0);
             bool empty = true; //Read error, maybe starting up
             foreach (byte b in psxfinVersionBuf) if (b != 0) empty = false; //All bytes == 0?
             if (!empty) MessageWrongVersion(PSXFIN_VERSION);
@@ -74,12 +74,8 @@ namespace MuscleTrainer
             byte[] ePSXeVersionBuf = new Byte[expected.Length];
             IntPtr ePSXeVersionPtr = new IntPtr(Offset.ePSXeVersion);
             mioRelative.MemoryRead(ePSXeVersionPtr, ePSXeVersionBuf);
-            bool badVersion = false;
-            for (int i = 0; i < expected.Length; i++)
-            {
-                if (expected[i] != ePSXeVersionBuf[i]) badVersion = true;
-            }
-            if (!badVersion) return (IntPtr)Offset.ePSXeMemstart; //Memory start (fixed pos, no pointer needed)
+            if (memcmp(expected, ePSXeVersionBuf, new UIntPtr((uint)expected.Length)) == 0)
+                return (IntPtr)Offset.ePSXeMemstart; //Memory start (fixed pos, no pointer needed)
             bool empty = true; //Read error, maybe starting up
             foreach (byte b in ePSXeVersionBuf) if (b != 0) empty = false; //All bytes == 0?
             if (!empty) MessageWrongVersion(EPSXE_VERSION);
