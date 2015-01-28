@@ -12,8 +12,6 @@ namespace MuscleTrainer
 
         public static readonly string PSXFIN = @"psxfin";
         public static readonly string EPSXE = @"ePSXe";
-        public static readonly string PSXFIN_VERSION = @"psxfin v.1.13";
-        public static readonly string EPSXE_VERSION = @"ePSXe v.1.9.0";
 
         //About window text strings
         public static readonly string PSXFIN_VERSION_CHECK = "pSX v1.13\0";
@@ -35,6 +33,7 @@ namespace MuscleTrainer
             }
         }
 
+        //Returns main memory start
         private static IntPtr? DetectPsxfin()
         {
             /**
@@ -50,36 +49,33 @@ namespace MuscleTrainer
             IntPtr baseAddrPointer = new IntPtr(Offset.psxfinMemstart); //psxfin.exe+171A5C, memstart ptr
             mioRelative.MemoryRead(baseAddrPointer, readBuf);
 
-            //Detect version
-            byte[] expected = System.Text.Encoding.Unicode.GetBytes(PSXFIN_VERSION_CHECK);
-            byte[] psxfinVersionBuf = new Byte[expected.Length];
-            IntPtr psxfinVersionPtr = new IntPtr(Offset.psxfinVersion);
-            mioRelative.MemoryRead(psxfinVersionPtr, psxfinVersionBuf);
-            if (memcmp(expected, psxfinVersionBuf, new UIntPtr((uint)expected.Length)) == 0)
-                return (IntPtr)BitConverter.ToInt32(readBuf, 0);
-            bool empty = true; //Read error, maybe starting up
-            foreach (byte b in psxfinVersionBuf) if (b != 0) empty = false; //All bytes == 0?
-            if (!empty) MessageWrongVersion(PSXFIN_VERSION);
-            return null; //Wrong version => Fail
+            return versionOk(PSXFIN_VERSION_CHECK, mioRelative, (IntPtr)Offset.psxfinVersion)
+                ? (IntPtr?)BitConverter.ToInt32(readBuf, 0) : null;
         }
 
+        //Returns main memory start
         private static IntPtr? DetectEPSXe()
         {
             emulator = EPSXE;
             MemoryIO mioRelative = new MemoryIO(emulator, true); //Program start = 0
             if (!mioRelative.processOK()) return null;
 
-            //Detect version
-            byte[] expected = System.Text.Encoding.Unicode.GetBytes(PPSXE_VERSION_CHECK);
-            byte[] ePSXeVersionBuf = new Byte[expected.Length];
-            IntPtr ePSXeVersionPtr = new IntPtr(Offset.ePSXeVersion);
-            mioRelative.MemoryRead(ePSXeVersionPtr, ePSXeVersionBuf);
-            if (memcmp(expected, ePSXeVersionBuf, new UIntPtr((uint)expected.Length)) == 0)
-                return (IntPtr)Offset.ePSXeMemstart; //Memory start (fixed pos, no pointer needed)
+            return versionOk(PPSXE_VERSION_CHECK, mioRelative, (IntPtr)Offset.ePSXeVersion)
+                ? (IntPtr?)Offset.ePSXeMemstart : null; //Fixed pos, no pointer needed)
+        }
+
+        //Detect if supported version
+        private static bool versionOk(string checkVersion, MemoryIO mioRelative, IntPtr versionPtr)
+        {
+            byte[] expected = System.Text.Encoding.Unicode.GetBytes(checkVersion);
+            var versionBuf = new Byte[expected.Length];
+            mioRelative.MemoryRead(versionPtr, versionBuf);
+            if (memcmp(expected, versionBuf, new UIntPtr((uint)expected.Length)) == 0)
+                return true;
             bool empty = true; //Read error, maybe starting up
-            foreach (byte b in ePSXeVersionBuf) if (b != 0) empty = false; //All bytes == 0?
-            if (!empty) MessageWrongVersion(EPSXE_VERSION);
-            return null; //Wrong version => Fail
+            foreach (byte b in versionBuf) if (b != 0) empty = false; //All bytes == 0?
+            if (!empty) MessageWrongVersion(checkVersion);
+            return false; //Wrong version => Fail
         }
 
         private static void MessageWrongVersion(string emulator)
