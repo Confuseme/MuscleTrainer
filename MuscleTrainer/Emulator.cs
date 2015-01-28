@@ -36,17 +36,11 @@ namespace MuscleTrainer
         //Returns main memory start
         private static IntPtr? DetectPsxfin()
         {
-            /**
-             * Try to acquire permissions for psxfin
-             **/
-            emulator = PSXFIN;
+            var mioRelative = new MemoryIO(PSXFIN, true); //Program start = 0
+            if (!mioRelative.processOK()) return null;
+
             byte[] readBuf = new byte[4];
-            MemoryIO mioRelative = new MemoryIO(emulator, true); //Program start = 0
-            if (!mioRelative.processOK())
-            {
-                return null;
-            }
-            IntPtr baseAddrPointer = new IntPtr(Offset.psxfinMemstart); //psxfin.exe+171A5C, memstart ptr
+            var baseAddrPointer = new IntPtr(Offset.psxfinMemstart); //psxfin.exe+171A5C, memstart ptr
             mioRelative.MemoryRead(baseAddrPointer, readBuf);
 
             return versionOk(PSXFIN_VERSION_CHECK, mioRelative, (IntPtr)Offset.psxfinVersion)
@@ -56,8 +50,7 @@ namespace MuscleTrainer
         //Returns main memory start
         private static IntPtr? DetectEPSXe()
         {
-            emulator = EPSXE;
-            MemoryIO mioRelative = new MemoryIO(emulator, true); //Program start = 0
+            var mioRelative = new MemoryIO(EPSXE, true); //Program start = 0
             if (!mioRelative.processOK()) return null;
 
             return versionOk(PPSXE_VERSION_CHECK, mioRelative, (IntPtr)Offset.ePSXeVersion)
@@ -71,10 +64,11 @@ namespace MuscleTrainer
             var versionBuf = new Byte[expected.Length];
             mioRelative.MemoryRead(versionPtr, versionBuf);
             if (memcmp(expected, versionBuf, new UIntPtr((uint)expected.Length)) == 0)
-                return true;
-            bool empty = true; //Read error, maybe starting up
+                return true; //Identical
+
+            bool empty = true;
             foreach (byte b in versionBuf) if (b != 0) empty = false; //All bytes == 0?
-            if (!empty) MessageWrongVersion(checkVersion);
+            if (!empty) MessageWrongVersion(checkVersion); //Read error, maybe starting up
             return false; //Wrong version => Fail
         }
 
