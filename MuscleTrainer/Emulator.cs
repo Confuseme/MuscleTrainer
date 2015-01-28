@@ -10,6 +10,8 @@ namespace MuscleTrainer
         public static readonly string EPSXE = @"ePSXe";
         public static readonly string PSXFIN_VERSION = @"psxfin v.1.13";
         public static readonly string EPSXE_VERSION = @"ePSXe v.1.9.0";
+
+        //About window text strings
         public static readonly string PSXFIN_VERSION_CHECK = "pSX v1.13\0";
         public static readonly string PPSXE_VERSION_CHECK = @"ePSXe (Enhanced PSX Emulator) v.1.9.0.";
 
@@ -44,10 +46,7 @@ namespace MuscleTrainer
             IntPtr baseAddrPointer = new IntPtr(Offset.psxfinMemstart); //psxfin.exe+171A5C, memstart ptr
             mioRelative.MemoryRead(baseAddrPointer, readBuf);
 
-            /**
-             * Verify that psxfin version == 1.13
-             * This method uses the text in the about window
-             **/
+            //Detect version
             byte[] expected = System.Text.Encoding.Unicode.GetBytes(PSXFIN_VERSION_CHECK);
             byte[] psxfinVersionBuf = new Byte[expected.Length];
             IntPtr psxfinVersionPtr = new IntPtr(Offset.psxfinVersion);
@@ -69,10 +68,8 @@ namespace MuscleTrainer
             emulator = EPSXE;
             MemoryIO mioRelative = new MemoryIO(emulator, true); //Program start = 0
             if (!mioRelative.processOK()) return null;
-            /**
-             * Verify that ePSXe version == 1.9.0
-             * This method uses the text in the about window
-             **/
+
+            //Detect version
             byte[] expected = System.Text.Encoding.Unicode.GetBytes(PPSXE_VERSION_CHECK);
             byte[] ePSXeVersionBuf = new Byte[expected.Length];
             IntPtr ePSXeVersionPtr = new IntPtr(Offset.ePSXeVersion);
