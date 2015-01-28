@@ -20,7 +20,7 @@ namespace MuscleTrainer
         public static readonly string XEBRA_VERSION_CHECK = @""; //TODO
 
         public static string emulator;
-        private static List<string> badVersionsMessaged;
+        private static List<string> badVersionsMessaged = new List<string>();
         public static IntPtr? baseAddr
         {
             get
@@ -99,10 +99,6 @@ namespace MuscleTrainer
 
         private static void MessageWrongVersion(string emulator)
         {
-            if (badVersionsMessaged == null)
-            {
-                badVersionsMessaged = new List<string>();
-            }
             if (badVersionsMessaged.Contains(emulator)) return; //Message already shown
             badVersionsMessaged.Add(emulator);
             System.Windows.Forms.MessageBox.Show("Only " + emulator + " is supported",
