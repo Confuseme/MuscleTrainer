@@ -25,10 +25,13 @@ namespace MuscleTrainer
         public static readonly int tex_x = 0x1F1B86;
         public static readonly int tex_y = 0x1F1C72;
 
+        public static readonly int ePSXeMemstart = 0xA579A0;
+        public static readonly int ePSXeVersion = 0x933E38;
+
         public static readonly int psxfinMemstart = 0x171A5C;
         public static readonly int psxfinVersion = 0x128D34;
 
-        public static readonly int ePSXeMemstart = 0xA579A0;
-        public static readonly int ePSXeVersion = 0x933E38;
+        public static readonly int xebraMemstart = 0x54920;
+        public static readonly int xebraVersion = 0x0; //TODO
     }
 }

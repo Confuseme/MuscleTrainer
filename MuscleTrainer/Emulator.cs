@@ -10,12 +10,14 @@ namespace MuscleTrainer
         [DllImport("msvcrt.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int memcmp(byte[] b1, byte[] b2, UIntPtr count);
 
-        public static readonly string PSXFIN = @"psxfin";
         public static readonly string EPSXE = @"ePSXe";
+        public static readonly string PSXFIN = @"psxfin";
+        public static readonly string XEBRA = @"XEBRA";
 
         //About window text strings
         public static readonly string PSXFIN_VERSION_CHECK = "pSX v1.13\0";
         public static readonly string PPSXE_VERSION_CHECK = @"ePSXe (Enhanced PSX Emulator) v.1.9.0.";
+        public static readonly string XEBRA_VERSION_CHECK = @""; //TODO
 
         public static string emulator;
         private static List<string> badVersionsMessaged;
@@ -23,28 +25,23 @@ namespace MuscleTrainer
         {
             get
             {
-                //Try psxfin
-                IntPtr? DEbaseAdress = DetectPsxfin();
-                if (DEbaseAdress != null) return DEbaseAdress;
+                IntPtr? DEbaseAddress;
+                //Look for slow emulators first
+                //Try XEBRA
+                DEbaseAddress = DetectXEBRA();
+                emulator = XEBRA;
+                if (DEbaseAddress != null) return DEbaseAddress;
                 //Try ePSXe
-                DEbaseAdress = DetectEPSXe();
-                if (DEbaseAdress != null) return DEbaseAdress;
+                DEbaseAddress = DetectEPSXe();
+                emulator = EPSXE;
+                if (DEbaseAddress != null) return DEbaseAddress;
+                //Try psxfin
+                DEbaseAddress = DetectPsxfin();
+                emulator = PSXFIN;
+                if (DEbaseAddress != null) return DEbaseAddress;
+                emulator = null;
                 return null;
             }
-        }
-
-        //Returns main memory start
-        private static IntPtr? DetectPsxfin()
-        {
-            var mioRelative = new MemoryIO(PSXFIN, true); //Program start = 0
-            if (!mioRelative.processOK()) return null;
-
-            byte[] readBuf = new byte[4];
-            var baseAddrPointer = new IntPtr(Offset.psxfinMemstart); //psxfin.exe+171A5C, memstart ptr
-            mioRelative.MemoryRead(baseAddrPointer, readBuf);
-
-            return versionOk(PSXFIN_VERSION_CHECK, mioRelative, (IntPtr)Offset.psxfinVersion)
-                ? (IntPtr?)BitConverter.ToInt32(readBuf, 0) : null;
         }
 
         //Returns main memory start
@@ -55,6 +52,34 @@ namespace MuscleTrainer
 
             return versionOk(PPSXE_VERSION_CHECK, mioRelative, (IntPtr)Offset.ePSXeVersion)
                 ? (IntPtr?)Offset.ePSXeMemstart : null; //Fixed pos, no pointer needed)
+        }
+
+        //Returns main memory start
+        private static IntPtr? DetectXEBRA()
+        {
+            var mioRelative = new MemoryIO(XEBRA, true); //Program start = 0
+            if (!mioRelative.processOK()) return null;
+
+            byte[] readBuf = new byte[4];
+            var baseAddrPointer = new IntPtr(Offset.xebraMemstart); //XEBRA.EXE+54920, memstart ptr
+            mioRelative.MemoryRead(baseAddrPointer, readBuf);
+
+            return versionOk(XEBRA_VERSION_CHECK, mioRelative, (IntPtr)Offset.xebraVersion)
+                ? (IntPtr?)BitConverter.ToInt32(readBuf, 0) : null;
+        }
+
+        //Returns main memory start
+        private static IntPtr? DetectPsxfin()
+        {
+            var mioRelative = new MemoryIO(PSXFIN, true); //Program start = 0
+            if (!mioRelative.processOK()) return null;
+
+            byte[] readBuf = new byte[4];
+            var baseAddrPointer = new IntPtr(Offset.psxfinMemstart); //psxfin.exe+171A5C, memstart ptr 
+            mioRelative.MemoryRead(baseAddrPointer, readBuf);
+
+            return versionOk(PSXFIN_VERSION_CHECK, mioRelative, (IntPtr)Offset.psxfinVersion)
+                ? (IntPtr?)BitConverter.ToInt32(readBuf, 0) : null;
         }
 
         //Detect if supported version

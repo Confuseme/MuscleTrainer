@@ -110,7 +110,7 @@ namespace MuscleTrainer
                     }
                     foreach (ProcessModule module in process.Modules)
                     {
-                        if (module.ModuleName == ModuleName)
+                        if (module.ModuleName.ToLower() == ModuleName.ToLower())
                         {
                             dllBaseAdress = module.BaseAddress;
                             break;
