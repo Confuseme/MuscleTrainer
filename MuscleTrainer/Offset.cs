@@ -22,9 +22,6 @@ namespace MuscleTrainer
         public static readonly int event_y = 0x9167c;
         public static readonly int events = 0x91680;
 
-        public static readonly int tex_x = 0x1F1B86;
-        public static readonly int tex_y = 0x1F1C72;
-
         public static readonly uint gray_ptr = 0x88D2C;
         public static readonly int gray_flag_enabled = 0x8C;
 
