@@ -12,6 +12,7 @@ namespace MuscleTrainer
     {
         //bool succeeded = false;
         int lastx, lasty, lastz, lastmap;
+        int last_grey_enabled;
         bool updating = false;
         int ticks = 0;
 
@@ -112,6 +113,24 @@ namespace MuscleTrainer
             }
 
             /**
+             * Grayman
+             **/
+            int? gray_enabled = Variable.gray_enabled;
+            if (gray_enabled != null && last_grey_enabled != gray_enabled)
+            {
+                last_grey_enabled = (int)gray_enabled;
+                if (gray_enabled == 0)
+                {
+                    labelGrayman.Text = "";
+                }
+                else
+                {
+                    labelGrayman.Text = "GRAY GRAY" + Environment.NewLine + "GRAY GRAY"
+                                                    + Environment.NewLine + "GRAY GRAY";
+                }
+            }
+
+            /**
              * Map related
              **/
             int? map = ReadMap();
@@ -133,24 +152,6 @@ namespace MuscleTrainer
                 if (map_pos != null)
                 {
                     LabelMapPos.Text = "Pos = " + ((int)map_pos).ToString("X8");
-                }
-
-                /**
-                 * Texture
-                 **/
-                int? tex_x = Variable.tex_x; int? tex_y = Variable.tex_y;
-                if (tex_x != null && tex_y != null)
-                {
-                    int tx = (int)tex_x & 0xFF; int ty = (int)tex_y & 0xFF;
-                    //if (LabelTexX.Text.Last() == ' ')
-                    //{
-                    //    LabelTexX.Text += (char)tx + tx; LabelTexY.Text += (char)ty + ty;
-                    //}
-                    //else
-                    //{
-                    LabelTexX.Text = "TexX = " + tx;
-                    LabelTexY.Text = "TexY = " + ty;
-                    //}
                 }
 
                 /**

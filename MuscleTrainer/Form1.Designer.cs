@@ -58,12 +58,11 @@
             this.LabelMapPos = new System.Windows.Forms.Label();
             this.LabelMap = new System.Windows.Forms.Label();
             this.GroupBoxTex = new System.Windows.Forms.GroupBox();
-            this.LabelTexY = new System.Windows.Forms.Label();
-            this.LabelTexX = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.LabelEvents = new System.Windows.Forms.Label();
             this.LabelEventY = new System.Windows.Forms.Label();
             this.LabelEventX = new System.Windows.Forms.Label();
+            this.labelGrayman = new System.Windows.Forms.Label();
             this.GroupBoxDream.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBoxMap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownZ)).BeginInit();
@@ -400,32 +399,13 @@
             // 
             // GroupBoxTex
             // 
-            this.GroupBoxTex.Controls.Add(this.LabelTexY);
-            this.GroupBoxTex.Controls.Add(this.LabelTexX);
+            this.GroupBoxTex.Controls.Add(this.labelGrayman);
             this.GroupBoxTex.Location = new System.Drawing.Point(340, 221);
-            this.GroupBoxTex.Name = "GroupBoxTex";
+            this.GroupBoxTex.Name = "GroupBoxGrayman";
             this.GroupBoxTex.Size = new System.Drawing.Size(93, 63);
             this.GroupBoxTex.TabIndex = 13;
             this.GroupBoxTex.TabStop = false;
-            this.GroupBoxTex.Text = "Texture";
-            // 
-            // LabelTexY
-            // 
-            this.LabelTexY.AutoSize = true;
-            this.LabelTexY.Location = new System.Drawing.Point(13, 33);
-            this.LabelTexY.Name = "LabelTexY";
-            this.LabelTexY.Size = new System.Drawing.Size(44, 13);
-            this.LabelTexY.TabIndex = 1;
-            this.LabelTexY.Text = "TexY = ";
-            // 
-            // LabelTexX
-            // 
-            this.LabelTexX.AutoSize = true;
-            this.LabelTexX.Location = new System.Drawing.Point(13, 20);
-            this.LabelTexX.Name = "LabelTexX";
-            this.LabelTexX.Size = new System.Drawing.Size(44, 13);
-            this.LabelTexX.TabIndex = 0;
-            this.LabelTexX.Text = "TexX = ";
+            this.GroupBoxTex.Text = "Grayman";
             // 
             // groupBox1
             // 
@@ -465,6 +445,14 @@
             this.LabelEventX.Size = new System.Drawing.Size(24, 13);
             this.LabelEventX.TabIndex = 0;
             this.LabelEventX.Text = "x = ";
+            // 
+            // labelGrayman
+            // 
+            this.labelGrayman.AutoSize = true;
+            this.labelGrayman.Location = new System.Drawing.Point(7, 16);
+            this.labelGrayman.Name = "labelGrayman";
+            this.labelGrayman.Size = new System.Drawing.Size(0, 13);
+            this.labelGrayman.TabIndex = 2;
             // 
             // Window
             // 
@@ -531,13 +519,12 @@
         private System.Windows.Forms.GroupBox GroupBoxMap;
         private System.Windows.Forms.Label LabelMap;
         private System.Windows.Forms.GroupBox GroupBoxTex;
-        private System.Windows.Forms.Label LabelTexY;
-        private System.Windows.Forms.Label LabelTexX;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label LabelEventX;
         private System.Windows.Forms.Label LabelEventY;
         private System.Windows.Forms.Label LabelEvents;
         private System.Windows.Forms.Label LabelMapPos;
+        private System.Windows.Forms.Label labelGrayman;
     }
 }
 

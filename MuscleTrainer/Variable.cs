@@ -18,8 +18,15 @@ namespace MuscleTrainer
         public static int? event_y { get { return getInt32(Offset.event_y); } }
         public static int? events { get { return getInt32(Offset.events); } }
 
-        public static int? tex_x { get { return getInt32(Offset.tex_x); } }
-        public static int? tex_y { get { return getInt32(Offset.tex_y); } }
+        public static int? gray_enabled
+        {
+            get
+            {
+                int? enabled = getInt32ByPtr(Offset.gray_ptr, Offset.gray_flag_enabled);
+                if (enabled == null || (uint)enabled > 1) return null; //Boolean
+                return enabled;
+            }
+        }
 
         private static int last_chart_x = 0;
         public static int? chart_x
@@ -72,6 +79,30 @@ namespace MuscleTrainer
             IntPtr pointer = new IntPtr((int)addr + offset);
             mio.MemoryRead(pointer, readBuf);
             int value = BitConverter.ToInt32(readBuf, 0);
+            return value;
+        }
+
+        //return pointerOffset[offset], get a value by using a relative pointer
+        private static int? getInt32ByPtr(uint pointerOffset, int offset)
+        {
+            IntPtr? addr = Emulator.baseAddr;
+            if (Emulator.baseAddr == null)
+            {
+                return null; //Fatal error
+            }
+            byte[] readBuf = new byte[4], readBuf2 = new byte[4];
+
+            MemoryIO mio = new MemoryIO(Emulator.emulator);
+            if (!mio.processOK()) return null;
+
+            IntPtr pointerPointer = (IntPtr)((int)addr + pointerOffset);
+            mio.MemoryRead(pointerPointer, readBuf);
+            uint pointer = BitConverter.ToUInt32(readBuf, 0);
+            pointer &= ~0xA0000000; //Unset virtual memory cached/uncached flags
+            if (pointer == 0) return null;
+
+            mio.MemoryRead((IntPtr)((int)addr + pointer + offset), readBuf2);
+            int value = BitConverter.ToInt32(readBuf2, 0);
             return value;
         }
 
