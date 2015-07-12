@@ -1,9 +1,33 @@
 MuscleTrainer by Confuseme
 ==========================
-Latest release 
+Latest release (recommended)
 
 [MuscleTrainer 1.1 Release Candidate 4]
 (https://github.com/Confuseme/MuscleTrainer/releases/download/1.1RC4/MuscleTrainer-1.1RC4.exe)
+
+Release versions
+
+[MuscleTrainer 1.0](Old%20releases/MuscleTrainer-1.0.zip)
+
+Pre-release versions
+
+[MuscleTrainer 1.1 Release Candidate 4](Old%20releases/MuscleTrainer-1.1RC4.zip)
+
+[MuscleTrainer 1.1 Release Candidate 3](Old%20releases/MuscleTrainer-1.1RC3.zip)
+
+[MuscleTrainer 1.1 Release Candidate 2](Old%20releases/MuscleTrainer-1.1RC2.zip)
+
+[MuscleTrainer 1.1 Release Candidate 1](Old%20releases/MuscleTrainer-1.1RC1.zip)
+
+[MuscleTrainer 1.0 Release Candidate 5](Old%20releases/MuscleTrainer-1.0RC5.zip)
+
+[MuscleTrainer 1.0 Release Candidate 4](Old%20releases/MuscleTrainer-1.0RC4.zip)
+
+[MuscleTrainer 1.0 Release Candidate 3](Old%20releases/MuscleTrainer-1.0RC3.zip)
+
+[MuscleTrainer 1.0 Release Candidate 2](Old%20releases/MuscleTrainer-1.0RC2.zip)
+
+[MuscleTrainer 1.0 Release Candidate 1](Old%20releases/MuscleTrainer-1.0RC1.zip)
 
 ![MuscleTrainer PSXFIN screenshot](Screenshots/MuscleTrainer-1.0RC4-psxfin.png "MuscleTrainer PSXFIN screenshot")
 ![MuscleTrainer EPSXE screenshot](Screenshots/MuscleTrainer-1.0RC4-ePSXe.png "MuscleTrainer EPSXE screenshot")
