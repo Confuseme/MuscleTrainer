@@ -1,4 +1,8 @@
 #MuscleTrainer by Confuseme
+
+![MuscleTrainer PSXFIN screenshot](Screenshots/MuscleTrainer-1.0RC4-psxfin.png "MuscleTrainer PSXFIN screenshot")
+![MuscleTrainer EPSXE screenshot](Screenshots/MuscleTrainer-1.0RC4-ePSXe.png "MuscleTrainer EPSXE screenshot")
+
 |Latest version (recommended)|
 |----------------------------|
 |[MuscleTrainer 1.1 Release Candidate 4](https://github.com/Confuseme/MuscleTrainer/releases/download/1.1RC4/MuscleTrainer-1.1RC4.exe)|
@@ -18,9 +22,6 @@
 |[MuscleTrainer 1.0 Release Candidate 3](Old%20releases/MuscleTrainer-1.0RC3.zip)|
 |[MuscleTrainer 1.0 Release Candidate 2](Old%20releases/MuscleTrainer-1.0RC2.zip)|
 |[MuscleTrainer 1.0 Release Candidate 1](Old%20releases/MuscleTrainer-1.0RC1.zip)|
-
-![MuscleTrainer PSXFIN screenshot](Screenshots/MuscleTrainer-1.0RC4-psxfin.png "MuscleTrainer PSXFIN screenshot")
-![MuscleTrainer EPSXE screenshot](Screenshots/MuscleTrainer-1.0RC4-ePSXe.png "MuscleTrainer EPSXE screenshot")
 
 ##Compatibility
 MuscleTrainer 1.0 supports ePSXe v.1.9.0 and psxfin v.1.13. No other versions will work. Do you run another emulator and want it to be supported in a future release? Please write a comment in the forum.
