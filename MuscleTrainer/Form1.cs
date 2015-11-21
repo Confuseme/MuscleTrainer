@@ -264,10 +264,8 @@ namespace MuscleTrainer
             if (map != 3) return; //Only draw for The Natural World map
             int center = PictureBoxMap.Width / 2; //Width == height here
             center -= 2; //Circle center
-            x /= (2283 + 400); y /= (-2440 - 400);
-            //x /= 3000; y /= -2000; //Scale
-            x -= 2; y -= 15; //Off
-            x += center; y += center; //Centre of picture
+            x -= -310000; y -= 310000; //Map offset
+            x /= 2500; y /= -2500; //Map scale
             //Console.Out.WriteLine("Map: (" + x + ", "+ y + ")");
 
             Graphics g = PictureBoxMap.CreateGraphics();
