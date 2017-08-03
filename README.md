@@ -23,6 +23,12 @@ https://github.com/Confuseme/MuscleTrainer/releases
 |[MuscleTrainer 1.0 Release Candidate 2](Old%20releases/MuscleTrainer-1.0RC2.zip)|
 |[MuscleTrainer 1.0 Release Candidate 1](Old%20releases/MuscleTrainer-1.0RC1.zip)|
 
+Depending on your security settings and operating system, you may receive this warning. It is expected since this is not widespread software.
+
+![Security warning](https://github.com/Confuseme/MuscleTrainer/blob/master/Not%20commonly%20downloaded.png "Security warning")
+
+The program is not signed by a trusted publisher since it is a small scale hobbyist program, so you may receive warnings about that as well.
+
 ## Compatibility
 MuscleTrainer 1.0 supports ePSXe v.1.9.0 and psxfin v.1.13. The latest release of MuscleTrainer 1.1 supports ePSXe v.2.0.5 instead of v.1.9.0. Do you run another emulator and want it to be supported in a future release? Please write a comment in the forum.
 
