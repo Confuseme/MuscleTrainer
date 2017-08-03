@@ -24,7 +24,7 @@ https://github.com/Confuseme/MuscleTrainer/releases
 |[MuscleTrainer 1.0 Release Candidate 1](Old%20releases/MuscleTrainer-1.0RC1.zip)|
 
 ## Compatibility
-MuscleTrainer 1.0 supports ePSXe v.1.9.0 and psxfin v.1.13. No other versions will work. Do you run another emulator and want it to be supported in a future release? Please write a comment in the forum.
+MuscleTrainer 1.0 supports ePSXe v.1.9.0 and psxfin v.1.13. The latest release of MuscleTrainer 1.1 supports ePSXe v.2.0.5 instead of v.1.9.0. Do you run another emulator and want it to be supported in a future release? Please write a comment in the forum.
 
 ## Installation
 Extract and run the executable file inside the .zip file. MuscleTrainer can be started at any time, before or after the emulator is started. The trainer will auto-detect any running compatible emulators. The image file does not have to be mounted when starting.
