@@ -327,7 +327,7 @@
             this.LabelEpsxe.Name = "LabelEpsxe";
             this.LabelEpsxe.Size = new System.Drawing.Size(76, 13);
             this.LabelEpsxe.TabIndex = 1;
-            this.LabelEpsxe.Text = "ePSXe v.1.9.0";
+            this.LabelEpsxe.Text = "ePSXe v.2.0.5";
             // 
             // LabelPsxfin
             // 

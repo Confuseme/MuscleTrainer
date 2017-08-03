@@ -16,7 +16,7 @@ namespace MuscleTrainer
 
         //About window text strings
         public static readonly string PSXFIN_VERSION_CHECK = "pSX v1.13\0";
-        public static readonly string PPSXE_VERSION_CHECK = @"ePSXe (Enhanced PSX Emulator) v.1.9.0.";
+        public static readonly string EPSXE_VERSION_CHECK = @"ePSXe (Enhanced PSX Emulator) v.2.0.5.";
         public static readonly string XEBRA_VERSION_CHECK = @""; //TODO
 
         public static string emulator;
@@ -50,7 +50,7 @@ namespace MuscleTrainer
             var mioRelative = new MemoryIO(EPSXE, true); //Program start = 0
             if (!mioRelative.processOK()) return null;
 
-            return versionOk(PPSXE_VERSION_CHECK, mioRelative, (IntPtr)Offset.ePSXeVersion)
+            return versionOk(EPSXE_VERSION_CHECK, mioRelative, (IntPtr)Offset.ePSXeVersion)
                 ? (IntPtr?)Offset.ePSXeMemstart : null; //Fixed pos, no pointer needed)
         }
 
