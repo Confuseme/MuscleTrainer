@@ -469,7 +469,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Window";
-            this.Text = "MuscleTrainer 1.1 RC4 by Confuseme";
+            this.Text = "MuscleTrainer 1.1 RC5 by Confuseme";
             this.GroupBoxDream.ResumeLayout(false);
             this.GroupBoxDream.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBoxMap)).EndInit();
