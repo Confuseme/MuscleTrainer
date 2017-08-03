@@ -40,3 +40,12 @@ Questions? Write a comment at the Dream emulator MuscleTrainer [forum](http://dr
 
 ##Contribute
 There are currently few screenshots and Youtube™ demos available so please upload some to your website of choice. Links to this page would help MuscleTrainer appear in search engines. At the moment, it is hard to find using Google™.
+
+##Develop
+* Install Visual Studio 2017 Community. Do not add any components.
+* Clone the Git repository.
+* Open the solution in the cloned repository.
+* Install any extra components, such as Windows Forms, if asked.
+* Open the solution again.
+* Download the targeting pack for .Net Framework v2.0 if asked. Can be installed by following this guide https://docs.microsoft.com/sv-se/dotnet/framework/install/dotnet-35-windows-10
+* Restart Visual Studio and open the solution again.
