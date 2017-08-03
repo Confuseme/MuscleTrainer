@@ -3,15 +3,15 @@
 ![MuscleTrainer PSXFIN screenshot](Screenshots/MuscleTrainer-1.0RC4-psxfin.png "MuscleTrainer PSXFIN screenshot")
 ![MuscleTrainer EPSXE screenshot](Screenshots/MuscleTrainer-1.0RC4-ePSXe.png "MuscleTrainer EPSXE screenshot")
 
-|Latest version (recommended)|
-|----------------------------|
-|[MuscleTrainer 1.1 Release Candidate 4](https://github.com/Confuseme/MuscleTrainer/releases/download/1.1RC4/MuscleTrainer-1.1RC4.exe)|
+## Download
+Latest versions (recommended)
+https://github.com/Confuseme/MuscleTrainer/releases
 
-|Release versions|
+|Old release versions|
 |----------------|
 |[MuscleTrainer 1.0](Old%20releases/MuscleTrainer-1.0.zip)|
 
-|Pre-release versions|
+|Old pre-release versions|
 |--------------------|
 |[MuscleTrainer 1.1 Release Candidate 4](Old%20releases/MuscleTrainer-1.1RC4.zip)|
 |[MuscleTrainer 1.1 Release Candidate 3](Old%20releases/MuscleTrainer-1.1RC3.zip)|
