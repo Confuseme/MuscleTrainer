@@ -25,7 +25,7 @@ namespace MuscleTrainer
         public static readonly uint gray_ptr = 0x88D2C;
         public static readonly int gray_flag_enabled = 0x8C;
 
-        public static readonly int ePSXeMemstart = 0x14D2020;
+        public static readonly int ePSXeMemstart = 0x4E8E8;
         public static readonly int ePSXeVersion = 0x1551B5C;
 
         public static readonly int psxfinMemstart = 0x171A5C;

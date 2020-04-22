@@ -50,8 +50,12 @@ namespace MuscleTrainer
             var mioRelative = new MemoryIO(EPSXE, true); //Program start = 0
             if (!mioRelative.processOK()) return null;
 
+            byte[] readBuf = new byte[4];
+            var baseAddrPointer = new IntPtr(Offset.ePSXeMemstart); //ePSXe+offset, memstart ptr
+            mioRelative.MemoryRead(baseAddrPointer, readBuf);
+
             return versionOk(EPSXE_VERSION_CHECK, mioRelative, (IntPtr)Offset.ePSXeVersion)
-                ? (IntPtr?)Offset.ePSXeMemstart : null; //Fixed pos, no pointer needed)
+                ? (IntPtr?)BitConverter.ToInt32(readBuf, 0) : null;
         }
 
         //Returns main memory start
